@@ -43,7 +43,7 @@ elif [[ $STACK == "heroku-19" ]]; then
 elif [[ $STACK == "heroku-20" ]]; then
    	apt_install libicu66 libssl1.1
 elif [[ $STACK == "heroku-22" ]]; then
-   	apt_install libicu70
+   	apt_install libicu70 ### .net core doesn't support openssl 3.x and ubontu 22.04 doesn't support libssl1.1. We cannot upgrade to heroku-22!!!
 
 else
 	apt_install libicu55
