@@ -34,6 +34,17 @@ DOTNET_SDK_VERSION=${DOTNET_SDK_VERSION:-3.1.416}
 DOTNET_RUNTIME_VERSION=${DOTNET_RUNTIME_VERSION:-3.1.22}
 BUILD_CONFIGURATION=${BUILD_CONFIGURATION:-Release}
 
+print "Installing prerequisites for .NET Core on Ubuntu"
+if [[ $herokuos_version == "18.04" ]]; then
+	apt_install libicu60 openssl1.0
+elif [[ $herokuos_version == "19.04" ]]; then
+	apt_install libicu63 libssl1.1
+elif [[ $STACK == "heroku-20" ]]; then
+   	apt_install libicu66 libssl1.1
+else
+	apt_install libicu55
+fi
+
 info "Installing dotnet"
 install_dotnet $BUILD_DIR $CACHE_DIR $DOTNET_SDK_VERSION $DOTNET_RUNTIME_VERSION
 
@@ -60,9 +71,7 @@ topic "Project Name"
 info $PROJECT_NAME
 
 if [ -n "$(cat $PROJECT_FILE | grep 'netcoreapp2.0')" ]; then
-	topic "WARNING"
-	info "For netcoreapp2.0 use https://github.com/jincod/dotnetcore-buildpack#v2.1.200" | indent
-	info "More info https://github.com/jincod/dotnetcore-buildpack/issues/44" | indent
+	topic "WARNING"	
 fi
 export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 
