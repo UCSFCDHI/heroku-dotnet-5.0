@@ -34,7 +34,7 @@ DOTNET_SDK_VERSION=${DOTNET_SDK_VERSION:-3.1.416}
 DOTNET_RUNTIME_VERSION=${DOTNET_RUNTIME_VERSION:-3.1.22}
 BUILD_CONFIGURATION=${BUILD_CONFIGURATION:-Release}
 
-print "Installing prerequisites for .NET Core on Ubuntu"
+info "Installing prerequisites for .NET Core on Ubuntu"
 if [[ $herokuos_version == "18.04" ]]; then
 	apt_install libicu60 openssl1.0
 elif [[ $herokuos_version == "19.04" ]]; then
